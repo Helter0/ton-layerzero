@@ -10,11 +10,11 @@
     <div id="ton-connect"></div>
     <button id="send-message">Send LayerZero Message</button>
 
-    <script>
+   <script>
       const connector = new TON_CONNECT_UI.TonConnectUI({
         manifestUrl: "https://helter0.github.io/ton-layerzero/tonconnect-manifest.json",
         buttonRootId: "ton-connect",
-      });
+  });
 
       document.getElementById("send-message").onclick = async () => {
         const connectedWallet = await connector.connectWallet();
