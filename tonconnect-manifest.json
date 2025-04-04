@@ -1,6 +1,6 @@
 {
   "manifest_version": "1",
   "name": "TON LayerZero Messenger",
-  "url": "https://9a16-2a00-1358-e325-de00-186a-2e50-c1bc-917e.ngrok-free.app",
-  "icons": ["https://9a16-2a00-1358-e325-de00-186a-2e50-c1bc-917e.ngrok-free.app/icon.png"]
+  "url": "https://helter0.github.io/ton-layerzero/",
+  "icons": ["https://helter0.github.io/ton-layerzero/icon.png"]
 }
