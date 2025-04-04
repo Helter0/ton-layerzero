@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>TON → LayerZero</title>
+    <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
+  </head>
+  <body>
+    <h1>📡 TON → LayerZero</h1>
+    <div id="ton-connect"></div>
+    <button id="send-message">Send LayerZero Message</button>
+
+    <script>
+      const connector = new TON_CONNECT_UI.TonConnectUI({
+        manifestUrl: "https://9a16-2a00-1358-e325-de00-186a-2e50-c1bc-917e.ngrok-free.app",
+        buttonRootId: "ton-connect",
+      });
+
+      document.getElementById("send-message").onclick = async () => {
+        const connectedWallet = await connector.connectWallet();
+        if (!connectedWallet) {
+          alert("Wallet not connected");
+          return;
+        }
+
+        const address = "EQDF40kcwCXAfquLxsX4z_J9FmikzLak-kBOABkA1FPqcFnD";
+        const payload = "te6ccgEBAQEAAgAAAP4=";
+
+        await connector.sendTransaction({
+          validUntil: Math.floor(Date.now() / 1000) + 60,
+          messages: [
+            {
+              address,
+              amount: "2000000",
+              payload,
+            },
+          ],
+        });
+      };
+    </script>
+  </body>
+</html>
