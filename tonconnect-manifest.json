@@ -1,6 +1,5 @@
 {
-  "manifest_version": "1",
-  "name": "TON LayerZero Messenger",
   "url": "https://ton-layerzero-git-main-helter0s-projects.vercel.app",
-  "icons": ["https://ton.org/favicon.ico"]
+  "name": "TON LayerZero Messenger",
+  "iconUrl": "https://ton-layerzero-git-main-helter0s-projects.vercel.app/icon.png",
 }
