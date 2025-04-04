@@ -10,49 +10,49 @@
     <div id="ton-connect"></div>
     <button id="send-message">Send LayerZero Message</button>
 
-    <script>
-      const connector = new TON_CONNECT_UI.TonConnectUI({
-        manifestUrl: "https://ton-layerzero-git-main-helter0s-projects.vercel.app/tonconnect-manifest.json",
-        buttonRootId: "ton-connect",
+   <script>
+  const connector = new TON_CONNECT_UI.TonConnectUI({
+    manifestUrl: "https://ton-layerzero-git-main-helter0s-projects.vercel.app/tonconnect-manifest.json",
+    buttonRootId: "ton-connect",
+  });
+
+  document.getElementById("send-message").onclick = async () => {
+    console.log("🔘 Button clicked");
+
+    const wallet = await connector.wallet;
+    if (!wallet) {
+      alert("❌ Wallet not connected. Use the button above to connect.");
+      return;
+    }
+
+    console.log("✅ Wallet connected:", wallet);
+
+    const address = "EQDF40kcwCXAfquLxsX4z_J9FmikzLak-kBOABkA1FPqcFnD";
+    const rawPayload = "te6ccgEBAQEAAgAAAP4=";
+
+    try {
+      console.log("📨 Sending transaction...");
+
+      await connector.sendTransaction({
+        validUntil: Math.floor(Date.now() / 1000) + 60,
+        messages: [
+          {
+            address,
+            amount: "2000000",
+            payload: {
+              type: "payload",
+              data: rawPayload
+            }
+          }
+        ]
       });
 
-      document.getElementById("send-message").onclick = async () => {
-        console.log("🔘 Кнопка нажата");
-
-        const connectedWallet = await connector.connectWallet();
-        if (!connectedWallet) {
-          alert("❌ Wallet not connected");
-          return;
-        }
-
-        console.log("✅ Wallet connected:", connectedWallet);
-
-        const address = "EQDF40kcwCXAfquLxsX4z_J9FmikzLak-kBOABkA1FPqcFnD";
-        const rawPayload = "te6ccgEBAQEAAgAAAP4="; // base64
-
-        try {
-          console.log("📨 Sending transaction...");
-
-          await connector.sendTransaction({
-            validUntil: Math.floor(Date.now() / 1000) + 60,
-            messages: [
-              {
-                address,
-                amount: "2000000",
-                payload: {
-                  type: "payload",
-                  data: rawPayload
-                }
-              }
-            ]
-          });
-
-          console.log("✅ Transaction sent!");
-        } catch (error) {
-          console.error("❌ Transaction failed:", error);
-          alert("Transaction failed: " + (error.message || error));
-        }
-      };
-    </script>
+      console.log("✅ Transaction sent!");
+    } catch (error) {
+      console.error("❌ Transaction failed:", error);
+      alert("Transaction failed: " + (error.message || error));
+    }
+  };
+</script>
   </body>
 </html>
