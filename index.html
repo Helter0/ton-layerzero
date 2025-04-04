@@ -17,10 +17,9 @@
       });
 
       document.getElementById("send-message").onclick = async () => {
-        console.log("🔘 Button clicked");
+        console.log("🔘 Кнопка нажата");
 
         const connectedWallet = await connector.connectWallet();
-
         if (!connectedWallet) {
           alert("❌ Wallet not connected");
           return;
@@ -28,8 +27,8 @@
 
         console.log("✅ Wallet connected:", connectedWallet);
 
-        const address = "EQDF40kcwCXAfquLxsX4z_J9FmikzLak-kBOABkA1FPqcFnD"; // Твой контракт
-        const payload = "te6ccgEBAQEAAgAAAP4="; // Payload для sendMessage
+        const address = "EQDF40kcwCXAfquLxsX4z_J9FmikzLak-kBOABkA1FPqcFnD";
+        const rawPayload = "te6ccgEBAQEAAgAAAP4="; // base64
 
         try {
           console.log("📨 Sending transaction...");
@@ -39,10 +38,13 @@
             messages: [
               {
                 address,
-                amount: "2000000", // 0.002 TON в nanotons
-                payload,
-              },
-            ],
+                amount: "2000000",
+                payload: {
+                  type: "payload",
+                  data: rawPayload
+                }
+              }
+            ]
           });
 
           console.log("✅ Transaction sent!");
