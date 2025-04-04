@@ -10,49 +10,53 @@
     <div id="ton-connect"></div>
     <button id="send-message">Send LayerZero Message</button>
 
-   <script>
-  const connector = new TON_CONNECT_UI.TonConnectUI({
-    manifestUrl: "https://ton-layerzero-git-main-helter0s-projects.vercel.app/tonconnect-manifest.json",
-    buttonRootId: "ton-connect",
-  });
-
-  document.getElementById("send-message").onclick = async () => {
-    console.log("🔘 Button clicked");
-
-    const wallet = await connector.wallet;
-    if (!wallet) {
-      alert("❌ Wallet not connected. Use the button above to connect.");
-      return;
-    }
-
-    console.log("✅ Wallet connected:", wallet);
-
-    const address = "EQDF40kcwCXAfquLxsX4z_J9FmikzLak-kBOABkA1FPqcFnD";
-    const rawPayload = "te6ccgEBAQEAAgAAAP4=";
-
-    try {
-      console.log("📨 Sending transaction...");
-
-      await connector.sendTransaction({
-        validUntil: Math.floor(Date.now() / 1000) + 60,
-        messages: [
-          {
-            address,
-            amount: "2000000",
-            payload: {
-              type: "payload",
-              data: rawPayload
-            }
-          }
-        ]
+    <script>
+      const connector = new TON_CONNECT_UI.TonConnectUI({
+        manifestUrl: "https://ton-layerzero-git-main-helter0s-projects.vercel.app/tonconnect-manifest.json",
+        buttonRootId: "ton-connect",
       });
 
-      console.log("✅ Transaction sent!");
-    } catch (error) {
-      console.error("❌ Transaction failed:", error);
-      alert("Transaction failed: " + (error.message || error));
-    }
-  };
-</script>
+      document.getElementById("send-message").onclick = async () => {
+        console.log("🔘 Кнопка нажата");
+
+        // Проверим, подключён ли кошелёк
+        const wallet = await connector.wallet;
+        if (!wallet) {
+          alert("❌ Сначала подключите кошелёк через кнопку выше");
+          return;
+        }
+
+        console.log("✅ Кошелёк подключен:", wallet.account.address);
+
+        // Твой контракт
+        const address = "EQDF40kcwCXAfquLxsX4z_J9FmikzLak-kBOABkA1FPqcFnD";
+
+        // Base64 payload (пример - можно заменить на другой)
+        const payload = {
+          type: "payload",
+          data: "te6ccgEBAQEAAgAAAP4=" // замени на нужный payload при необходимости
+        };
+
+        const transaction = {
+          validUntil: Math.floor(Date.now() / 1000) + 60,
+          messages: [
+            {
+              address,
+              amount: "2000000", // 0.002 TON
+              payload
+            }
+          ]
+        };
+
+        try {
+          console.log("📨 Отправка транзакции:", transaction);
+          await connector.sendTransaction(transaction);
+          console.log("✅ Транзакция отправлена!");
+        } catch (error) {
+          console.error("❌ Ошибка при отправке транзакции:", error);
+          alert("Ошибка: " + (error.message || error));
+        }
+      };
+    </script>
   </body>
 </html>
