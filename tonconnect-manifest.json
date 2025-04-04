@@ -1,6 +1,6 @@
 {
   "manifest_version": "1",
   "name": "TON LayerZero Messenger",
-  "url": "https://helter0.github.io/ton-layerzero",
-  "icons": ["https://helter0.github.io/ton-layerzero/icon.png"]
+  "url": "https://ton-layerzero-git-main-helter0s-projects.vercel.app",
+  "icons": ["https://ton-layerzero-git-main-helter0s-projects.vercel.app/icon.png"]
 }
